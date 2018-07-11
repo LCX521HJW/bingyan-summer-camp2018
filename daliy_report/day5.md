@@ -1,0 +1,1 @@
+#Day5* 工程实训小程序正式完成并且发布* trending 的model层写完了（但是没测试过，不知道对不对），presenter层写到一半，争取明天把presenter层写完，view层开始写recycleview的适配器
