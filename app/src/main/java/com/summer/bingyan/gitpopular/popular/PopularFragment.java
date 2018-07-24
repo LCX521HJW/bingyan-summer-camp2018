@@ -1,9 +1,10 @@
-package com.summer.bingyan.gitpopular.fragments;
+package com.summer.bingyan.gitpopular.popular;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,22 +20,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.summer.bingyan.gitpopular.base_and_contract.Contract;
 import com.summer.bingyan.gitpopular.R;
 import com.summer.bingyan.gitpopular.adapters.PopularAdapter;
-import com.summer.bingyan.gitpopular.data.Popular;
-import com.summer.bingyan.gitpopular.presenter.PopularPresenter;
+import com.summer.bingyan.gitpopular.setting.SettingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopularFragment extends Fragment {
+public class PopularFragment extends Fragment implements Contract.View{
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private PopularAdapter popularAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private Contract.Prsenter popularPresenter;
     private List<Popular> populars=new ArrayList<>();
     private EditText editText;
     private ImageView imageView;
@@ -42,8 +43,8 @@ public class PopularFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private int flag=0;//判断是否已经有语言选择
     private Toolbar toolbar;
+    private ProgressBar progressBar;
     private String url="https://api.github.com/search/repositories?q=stars:>1&sort=stars";
-    private PopularPresenter popularPresenter;
     public PopularFragment() {
     }
 
@@ -80,20 +81,20 @@ public class PopularFragment extends Fragment {
       recyclerView=(RecyclerView)view.findViewById(R.id.show_popular);
       toolbar=(Toolbar)view.findViewById(R.id.popular_toolbar);
       toolbar.setTitle("Popular");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+       ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.trend_menu);
       swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipe_popular);
       editText=(EditText)view.findViewById(R.id.search);
       imageView=(ImageView)view.findViewById(R.id.search_image);
       Context context=getActivity();
       swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
-      popularPresenter=new PopularPresenter(context,this);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        popularPresenter.getPopular(url);
+                        popularPresenter.refresh(url);
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 },1000);
@@ -107,33 +108,79 @@ public class PopularFragment extends Fragment {
               String suburl2=url.substring(url.indexOf("&sort"),url.length());
               url=suburl1+editext+language+suburl2;
               Log.d("luchixiang", "onClick: "+url);
-              popularPresenter.getPopular(url);
+              popularPresenter.start(url);
           }
       });//搜索
+        PopularPresenter presenter=new PopularPresenter(context,this);
       layoutManager=new StaggeredGridLayoutManager(1, android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL);
       recyclerView.setLayoutManager(layoutManager);
       popularAdapter=new PopularAdapter(context,recyclerView,populars);
       recyclerView.setAdapter(popularAdapter);
       popularAdapter.notifyDataSetChanged();
-      popularPresenter.getPopular("https://api.github.com/search/repositories?q=stars:>1&sort=stars");
+      progressBar=(ProgressBar)view.findViewById(R.id.progressbar_popular);
+        progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(context,R.drawable.progress));
+      popularPresenter.start("https://api.github.com/search/repositories?q=stars:>1&sort=stars");
       return view;
     }
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+    public void setPresenter(Contract.Prsenter popularPresenter)
+    {
+        this.popularPresenter=popularPresenter;
+    }
     public void showToast()
     {
         Toast.makeText(getActivity(),"there is no result",Toast.LENGTH_LONG).show();
     }
-    public void notifyChanged(List list)
+    public void ListChanged(List list)
     {
         popularAdapter.popularListChanged(list);
         popularAdapter.notifyDataSetChanged();
     }
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void showDialog()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    public void dismissDialog()
+    {
+        progressBar.setVisibility(View.GONE);
+    }
+   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.trend_menu,menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    public void onPrepareOptionsMenu(Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        Menu time=menu.addSubMenu("time");
+        Menu language=menu.addSubMenu("language");
+        time.add(0,R.id.today,0,"day");
+        time.add(0,R.id.week,0,"week");
+        time.add(0,R.id.month,0,"month");
+        language.add(1,R.id.all,0,"all");
+        if (!SettingFragment.chosen_popular[0].equals(""))
+        {
+            language.add(1,R.id.java,0,"java");
+        }
+        if (!SettingFragment.chosen_popular[1].equals(""))
+        {
+            language.add(1,R.id.css,0,"css");
+        }
+        if (!SettingFragment.chosen_popular[2].equals(""))
+        {
+            language.add(1,R.id.cjiajia,0,"c++");
+        }
+        if (!SettingFragment.chosen_popular[3].equals(""))
+        {
+            language.add(1,R.id.javascript,0,"javascript");
+        }
+        if (!SettingFragment.chosen_popular[4].equals(""))
+        {
+            language.add(1,R.id.c,0,"c#");
+        }
     }
     public void changeurl()
     {
@@ -149,7 +196,7 @@ public class PopularFragment extends Fragment {
             String suburl2=url.substring(url.indexOf("&sort"),url.length());
             url=suburl1+language+suburl2;
         }
-        popularPresenter.getPopular(url);
+        popularPresenter.start(url);
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -183,6 +230,5 @@ public class PopularFragment extends Fragment {
             default:
             return super.onOptionsItemSelected(item);
         }
-
     }
 }

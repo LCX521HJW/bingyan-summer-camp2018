@@ -1,4 +1,4 @@
-package com.summer.bingyan.gitpopular.data;
+package com.summer.bingyan.gitpopular.popular;
 
 public class owner {
     private long id;

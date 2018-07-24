@@ -1,8 +1,6 @@
-package com.summer.bingyan.gitpopular.fragments;
+package com.summer.bingyan.gitpopular.favorite;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,23 +11,22 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.summer.bingyan.gitpopular.base_and_contract.FavoriteContract;
 import com.summer.bingyan.gitpopular.R;
 import com.summer.bingyan.gitpopular.adapters.PopularAdapter;
 import com.summer.bingyan.gitpopular.adapters.TrendingAdapter;
-import com.summer.bingyan.gitpopular.data.Popular;
-import com.summer.bingyan.gitpopular.data.Trend;
-import com.summer.bingyan.gitpopular.presenter.FavoritePresenter;
-import com.summer.bingyan.gitpopular.presenter.PopularPresenter;
+import com.summer.bingyan.gitpopular.popular.Popular;
+import com.summer.bingyan.gitpopular.Trending.Trend;
+import com.summer.bingyan.gitpopular.setting.SettingFragment;
 import com.summer.bingyan.gitpopular.utils.MyDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements FavoriteContract.View {
     private TrendingAdapter trendingAdapter;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
@@ -37,12 +34,12 @@ public class FavoriteFragment extends Fragment {
     private List<Trend>trends=new ArrayList<>();
     private List<Popular>populars=new ArrayList<>();
     private MyDatabaseHelper myDatabaseHelper;
-    private FavoritePresenter favoritePresenter;
     private TextView trend_black;
     private TextView trend_color;
     private TextView popular_black;
     private TextView popular_color;
     private Toolbar toolbar;
+    private FavoriteContract.Presenter favoritePrsenter;
     private PopularAdapter popularAdapter;
     public FavoriteFragment() {
     }
@@ -81,14 +78,14 @@ public class FavoriteFragment extends Fragment {
         trend_color=(TextView)view.findViewById(R.id.trend_favorite_color);
         toolbar=(Toolbar)view.findViewById(R.id.favorite_toolbar);
         toolbar.setTitle("Favorite");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         popular_black=(TextView)view.findViewById(R.id.popular_favorite_black);
         popular_color=(TextView)view.findViewById(R.id.popular_favorite_color);
         trend_black.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recyclerView.setAdapter(trendingAdapter);
-                favoritePresenter.query_trend();
+                favoritePrsenter.start_trend();
                 trend_color.setVisibility(View.VISIBLE);
                 trend_black.setVisibility(View.INVISIBLE);
                 popular_black.setVisibility(View.VISIBLE);
@@ -99,7 +96,7 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 recyclerView.setAdapter(popularAdapter);
-                favoritePresenter.query_popular();
+                favoritePrsenter.start_popular();
                trend_black.setVisibility(View.VISIBLE);
                trend_color.setVisibility(View.INVISIBLE);
                popular_black.setVisibility(View.INVISIBLE);
@@ -115,22 +112,33 @@ public class FavoriteFragment extends Fragment {
         Context context=getActivity();
         myDatabaseHelper=new MyDatabaseHelper(context,"Git.db",null,2);
         myDatabaseHelper.getWritableDatabase();
-        favoritePresenter=new FavoritePresenter(this,myDatabaseHelper);
+        FavoritePresenter presenter=new FavoritePresenter(context,myDatabaseHelper,this);
         trendingAdapter=new TrendingAdapter(context,recyclerView,trends);
         popularAdapter=new PopularAdapter(context,recyclerView,populars);
         recyclerView.setAdapter(trendingAdapter);
         trendingAdapter.notifyDataSetChanged();
-        favoritePresenter.query_trend();
+        favoritePrsenter.start_trend();
         return view;
     }
-    public void favoritetrendListChanged(List<Trend> list)
+    public void setPresenter(FavoriteContract.Presenter favoritePresenter)
+    {
+        this.favoritePrsenter=favoritePresenter;
+    }
+    public void TrendListChanged(List list)
     {
         trendingAdapter.trendListChanged(list);
         trendingAdapter.notifyDataSetChanged();
     }
-    public void favoritepopularListChanged(List<Popular> list)
+    public void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false);
+    }
+    public void PopularListChanged(List list)
     {
        popularAdapter.popularListChanged(list);
         popularAdapter.notifyDataSetChanged();
+    }
+    public void showToast()
+    {
     }
 }

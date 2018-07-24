@@ -1,4 +1,4 @@
-package com.summer.bingyan.gitpopular.data;
+package com.summer.bingyan.gitpopular.Trending;
 
 public class Trend {
     private String url;

@@ -1,11 +1,11 @@
-package com.summer.bingyan.gitpopular.model;
+package com.summer.bingyan.gitpopular.favorite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.summer.bingyan.gitpopular.data.Popular;
-import com.summer.bingyan.gitpopular.data.Trend;
+import com.summer.bingyan.gitpopular.popular.Popular;
+import com.summer.bingyan.gitpopular.Trending.Trend;
 import com.summer.bingyan.gitpopular.utils.MyDatabaseHelper;
 
 import java.util.ArrayList;

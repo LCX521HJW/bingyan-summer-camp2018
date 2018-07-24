@@ -1,11 +1,11 @@
-package com.summer.bingyan.gitpopular.model;
+package com.summer.bingyan.gitpopular.Trending;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.summer.bingyan.gitpopular.data.Trend;
+import com.summer.bingyan.gitpopular.favorite.FavoriteModel;
 import com.summer.bingyan.gitpopular.utils.MyDatabaseHelper;
 
 import org.jsoup.Jsoup;

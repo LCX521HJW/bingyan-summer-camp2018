@@ -1,18 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.test.MainActivity">
-    <item
-        android:id="@+id/c"
-        android:orderInCategory="0"
-        android:title="@string/c"
-        app:showAsAction="never"
-        />
+    tools:context="com.example.summer.bingyan.gitpopular.Trending.TrendingFragment">
     <item
         android:id="@+id/time"
-        android:orderInCategory="1"
-        android:title="@string/day"
-        app:showAsAction="ifRoom">
+        android:orderInCategory="0"
+        android:title="@string/time"
+        app:showAsAction="never">
         <menu>
             <item android:id="@+id/today"
                 android:title="@string/day"/>
@@ -22,6 +16,19 @@
                 android:title="@string/month"/>
         </menu>
     </item>
+    <item android:title="@string/language"
+        android:id="@+id/language"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        >
+
+<menu>
+    <item
+        android:id="@+id/c"
+        android:orderInCategory="0"
+        android:title="@string/c"
+        app:showAsAction="never"
+        />
     <item
         android:id="@+id/java"
         android:orderInCategory="2"
@@ -52,4 +59,6 @@
         android:title="@string/javascript"
         app:showAsAction="never"
         />
+</menu>
+    </item>
 </menu>

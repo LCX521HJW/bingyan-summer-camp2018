@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PopularFragment"
+    tools:context=".popular.PopularFragment"
     android:orientation="vertical"
     >
     <android.support.v7.widget.Toolbar
@@ -36,6 +36,12 @@
             android:id="@+id/search_image"
             />
     </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbar_popular"
+        android:layout_gravity="center"
+        />
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 import com.summer.bingyan.gitpopular.R;
 
 import com.summer.bingyan.gitpopular.activities.ContentActivity;
-import com.summer.bingyan.gitpopular.data.Popular;
+import com.summer.bingyan.gitpopular.popular.Popular;
 import com.summer.bingyan.gitpopular.utils.MyDatabaseHelper;
 
 import java.util.List;

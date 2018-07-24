@@ -1,9 +1,9 @@
-package com.summer.bingyan.gitpopular.data;
+package com.summer.bingyan.gitpopular.popular;
 
 public class Popular {
     private String full_name;
     private long id;
-    private owner owner;
+    private com.summer.bingyan.gitpopular.popular.owner owner;
     private String html_url;
     private String description;
     private boolean isFavorite=false;
@@ -34,10 +34,10 @@ public class Popular {
     public void setId(long id) {
         this.id = id;
     }
-    public com.summer.bingyan.gitpopular.data.owner getOwner() {
+    public com.summer.bingyan.gitpopular.popular.owner getOwner() {
         return owner;
     }
-    public void setOwner(com.summer.bingyan.gitpopular.data.owner owner) {
+    public void setOwner(com.summer.bingyan.gitpopular.popular.owner owner) {
         this.owner = owner;
     }
     public String getHtml_url() {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingFragment"
+    tools:context=".setting.SettingFragment"
     >
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -17,6 +17,61 @@
         android:layout_width="match_parent"
         android:layout_height="0.6dp"
         android:alpha="0.6"
+        android:id="@+id/view_1"
+        android:background="?selected_color"
+        android:layout_alignTop="@+id/change_trend_tag"
+        />
+
+    <TextView
+        android:id="@+id/change_trend_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view_3"
+        android:layout_alignParentStart="true"
+        android:text="@string/trend_tag_change"
+        android:textSize="30sp"
+        android:typeface="serif" />
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/view_3"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/hint"
+        android:tint="?selected_color" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:alpha="0.6"
+        android:id="@+id/view_3"
+        android:background="?selected_color"
+        android:layout_alignTop="@+id/change_popular_tag"
+        />
+
+    <TextView
+        android:id="@+id/change_popular_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view_2"
+        android:layout_alignParentStart="true"
+        android:text="@string/poular_tag_change"
+        android:textSize="30sp"
+        android:typeface="serif" />
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/view_3"
+        android:scaleType="fitStart"
+        android:src="@drawable/hint"
+        android:tint="?selected_color" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:alpha="0.6"
+        android:id="@+id/view_2"
         android:background="?selected_color"
         android:layout_alignTop="@+id/change_theme"
         />
@@ -27,16 +82,16 @@
         android:id="@+id/change_theme"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:typeface="serif"
         />
+
     <ImageView
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@drawable/hint"
-       android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:scaleType="fitStart"
-        android:tint="?selected_color"
-        />
+        android:src="@drawable/hint"
+        android:tint="?selected_color" />
 </RelativeLayout>

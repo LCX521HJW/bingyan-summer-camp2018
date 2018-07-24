@@ -1,17 +1,15 @@
-package com.summer.bingyan.gitpopular.model;
+package com.summer.bingyan.gitpopular.popular;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.summer.bingyan.gitpopular.data.Popular;
-import com.summer.bingyan.gitpopular.data.owner;
+import com.summer.bingyan.gitpopular.favorite.FavoriteModel;
 import com.summer.bingyan.gitpopular.utils.MyDatabaseHelper;
 
 import java.io.BufferedReader;
@@ -85,7 +83,6 @@ public class PopularModel {
                         description="";
                    }
                     else description=jsonObject.get("description").getAsString();
-                    Log.d(TAG, "rundebug: "+description);
                     owner owner=new owner();
                     JsonObject jsonObject1=jsonObject.get("owner").getAsJsonObject();
                     long id_owner=jsonObject1.get("id").getAsLong();

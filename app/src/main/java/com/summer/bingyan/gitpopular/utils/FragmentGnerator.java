@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.summer.bingyan.gitpopular.R;
 
-import com.summer.bingyan.gitpopular.fragments.FavoriteFragment;
-import com.summer.bingyan.gitpopular.fragments.PopularFragment;
-import com.summer.bingyan.gitpopular.fragments.SettingFragment;
-import com.summer.bingyan.gitpopular.fragments.TrendingFragment;
+import com.summer.bingyan.gitpopular.favorite.FavoriteFragment;
+import com.summer.bingyan.gitpopular.popular.PopularFragment;
+import com.summer.bingyan.gitpopular.setting.SettingFragment;
+import com.summer.bingyan.gitpopular.Trending.TrendingFragment;
 
 public class FragmentGnerator {
     public static final String []mTabTitle=new String[]{"trending","popular","favorite","setting"};

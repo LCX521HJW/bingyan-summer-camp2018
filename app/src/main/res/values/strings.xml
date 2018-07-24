@@ -16,4 +16,8 @@
     <string name="trend">trend</string>
     <string name="popular">popular</string>
     <string name="change_theme">change theme</string>
+    <string name="poular_tag_change">change tag of popular</string>
+    <string name="trend_tag_change">change tag of trend</string>
+    <string name="language">language</string>
+    <string name="time">time</string>
 </resources>
