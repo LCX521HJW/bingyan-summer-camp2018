@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
              super(itemView);
              full_name=(TextView)itemView.findViewById(R.id.popular_title);
              description=(TextView)itemView.findViewById(R.id.popular_content);
+            description.setTextColor(Color.rgb(112,128,144));
+            description.setEllipsize(TextUtils.TruncateAt.END);
              star=(ImageView)itemView.findViewById(R.id.star);
              imageView=(ImageView)itemView.findViewById(R.id.selected_color);
         }

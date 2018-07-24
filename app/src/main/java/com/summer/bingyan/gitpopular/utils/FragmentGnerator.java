@@ -16,7 +16,7 @@ import com.summer.bingyan.gitpopular.Trending.TrendingFragment;
 
 public class FragmentGnerator {
     public static final String []mTabTitle=new String[]{"trending","popular","favorite","setting"};
-    public static final int []mTabImage=new int[]{R.drawable.trending,R.drawable.popular,R.drawable.favorite,R.drawable.setting};
+    public static final int []mTabImage=new int[]{R.drawable.trending,R.drawable.popular,R.drawable.favorite2,R.drawable.setting};
     public static Fragment[] getFragements()
     {
         Fragment fragments[] = new Fragment[4];

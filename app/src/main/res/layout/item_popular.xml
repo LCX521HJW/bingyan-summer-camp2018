@@ -10,8 +10,11 @@
         android:layout_width="match_parent"
         android:layout_gravity="center"
         card_view:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="12dp"
         card_view:cardBackgroundColor="@android:color/white"
+        card_view:contentPadding="10dp"
+        card_view:contentPaddingBottom="10dp"
+        card_view:cardElevation="2dp"
+        card_view:cardCornerRadius="5dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,17 +32,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/popular_title"
                 android:textColor="@android:color/black"
+                android:textSize="17sp"
                 />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.6dp"
-                android:alpha="0.6"
-                android:background="?selected_color"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="3"
                 android:id="@+id/popular_content"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/darker_gray"
                 />
         </LinearLayout>
             <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:scaleType="fitStart"
             android:layout_height="35dp"
-            android:src="@drawable/star"
+            android:src="@drawable/star2"
             android:id="@+id/star"
             android:layout_gravity="center"
             />
